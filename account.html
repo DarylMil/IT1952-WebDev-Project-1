@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelEasy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-5.15.3/css/all.min.css">                 <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="css/signup.css">  
+    <script src="./js/checkAuth.js"></script>
+</head>
+<body>
+    <div class="tm-main-content" id="top">
+        <div class="tm-top-bar-bg"></div>    
+        <div class="tm-top-bar" id="tm-top-bar">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-expand-lg narbar-light">
+                        <a class="navbar-brand mr-auto" href="./index.html" onclick="resetSearch()">
+                            <img src="img/logo.png" alt="Site logo">
+                            TravelEasy
+                        </a>
+                        <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./index.html" onclick="resetSearch()">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./destinations.html" onclick="resetSearch()">Destinations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./contactus.html">Contact Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="account-check" class="nav-link" onclick="authenticationCheck()">Account</a>
+                                </li>
+                            </ul>
+                        </div>                            
+                    </nav>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- .tm-top-bar -->
+    </div>
+    <div class="tm-page-wrap mx-auto">
+        <section class="sign-container account-profile">
+            <div class=" tm-banner-row-header">
+                <span class="sign-out-button">
+                    <span onclick="signout()"><i class="fa-3x fas fa-sign-out-alt"></i></span>
+                    <span class="tooltip-text">Log Out</span>
+                </span>
+                <h1 id="welcome"></h1>
+                <input id="signin-email" type="email" name="email" value="" disabled/>
+                <input id="signin-password" type="password" name="password" placeholder="Password" minlength="6" required/>
+                <button onclick="changePassword()">Change Password</button>
+                <div id="success-state" class="success-state"></div>
+            </div>
+            <div class="recent-purchase-container">
+                <h6>Purchase History (From Most Recent): </h6>
+                <div id="recent-purchase" class="recent-purchase">
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="modal fade" id="signoutModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Log Out</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Successfully logged out. You will be redirected to the main page
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Invoice -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div id="travel-invoice" class="container">
+            <div class="col-md-12">
+                <div class="invoice">
+                    <!-- begin invoice-company -->
+                    <div class="invoice-company text-inverse f-w-600">
+                        <span class="pull-right hidden-print">
+                        <button class="btn-sm mt-0" onclick="printInvoice()"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</button>
+                        </span>
+                        TravelEasy Pte Ltd
+                    </div>
+                    <!-- end invoice-company -->
+                    <!-- begin invoice-header -->
+                    <div class="invoice-header">
+                        <div class="invoice-to">
+                        <small>to</small>
+                        <address class="m-t-5 m-b-5">
+                            <strong class="text-inverse">TravelEasy Pte Ltd</strong><br>
+                            180 Ang Mo Kio Ave 8,<br>
+                            Singapore 569830<br>
+                            Phone: +65 1234 1234<br>
+                            Fax: +65 9898 9898
+                        </address>
+                        </div>
+                        <div class="invoice-date">
+                        <small>Invoice</small>
+                        <div id="invoice-date" class="date text-inverse m-t-5"></div>
+                        <div id="invoice-number" class="invoice-detail">
+                            <br>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- end invoice-header -->
+                    <!-- begin invoice-content -->
+                    <div class="invoice-content">
+                        <!-- begin table-responsive -->
+                        <div class="table-responsive">
+                        <table class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th>Travellers Full Name</th>
+                                    <th class="text-right" width="20%">Passport Number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="travellers-details">
+
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-invoice">
+                                <thead>
+                                    <tr>
+                                        <th>Travel Country</th>
+                                        <th class="text-right" width="20%">Travel Date </th>
+                                        <th class="text-right" width="20%">Adult / Child </th>
+                                        <th class="text-right" width="30%">Locations</th>
+                                        <th class="text-right" width="10%">Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="travellers-destination">
+                                    <tr>
+                                        <td id="travel-country" class="text-left" ></td>
+                                        <td id="travel-date" class="text-right" ></td> 
+                                        <td id="adult-child" class="text-right" ></td>
+                                        <td id="locations" class="text-right" ></td>
+                                        <td id="days" class="text-right" ></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                            </div>
+                        <!-- end table-responsive -->
+                        <!-- begin invoice-price -->
+                        <div class="invoice-price">
+                        <div class="invoice-price-right">
+                            <small>TOTAL</small> <span id="total-paid" class="price-big"></span>
+                        </div>
+                        </div>
+                        <!-- end invoice-price -->
+                    </div>
+                    <!-- end invoice-content -->
+                    <!-- begin invoice-note -->
+                    <div class="invoice-note">
+                        * If you have any questions concerning this invoice, contact: +65 9999 1111 or email: accounts@geasy.com 
+                    </div>
+                    <!-- end invoice-note -->
+                    <!-- begin invoice-footer -->
+                    <div class="invoice-footer">
+                        <p class="text-center m-b-5 f-w-600">
+                        THANK YOU FOR TRAVELLING WITH US
+                        </p>
+                        <p class="text-center">
+                        <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> www.traveleasy.com</span>
+                        <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:+65 1234 1234</span>
+                        <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> traveleasy@geasy.com</span>
+                        </p>
+                    </div>
+                    <!-- end invoice-footer -->
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <footer class="tm-container-outer">
+        <p class="mb-0 mt-0">Copyright © <span class="tm-current-year">2021</span> Your Company 
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>              <!-- jQuery (https://jquery.com/download/) -->
+    <script src="js/popper.min.js"></script>                    <!-- https://popper.js.org/ -->       
+    <script src="js/bootstrap.min.js"></script>                 <!-- https://getbootstrap.com/ -->
+    <script src="slick/slick.min.js"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
+    <script src="js/main.js"></script>
+    <script src="js/accounts.js"></script>
+</body>
+</html>

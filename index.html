@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TravelEasy</title>
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-5.15.3/css/all.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                              <!-- Bootstrap style -->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="css/templatemo-style.css">                           <!-- Templatemo style -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+          <![endif]-->
+</head>
+
+<body>
+<div class="tm-main-content" id="top">
+    <div class="tm-top-bar-bg"></div>    
+    <div class="tm-top-bar" id="tm-top-bar">
+        <div class="container">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg narbar-light">
+                    <a class="navbar-brand mr-auto" href="#top">
+                        <img src="img/logo.png" alt="Site logo">
+                        TravelEasy
+                    </a>
+                    <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#top">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./destinations.html" onclick="resetSearch()">Destinations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contactus.html">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="account-check" class="nav-link" onclick="authenticationCheck()">Account</a>
+                            </li>
+                        </ul>
+                    </div>                            
+                </nav>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- .tm-top-bar -->
+</div> <!-- .main-content -->
+    
+<div class="tm-page-wrap mx-auto">
+    <section class="tm-banner">
+        <div class="tm-container-outer tm-banner-bg">
+            <div class="container">
+                <div class="row tm-banner-row tm-banner-row-header">
+                    <div class="col-xs-12">
+                        <div class="tm-banner-header">
+                            <h1 class="text-uppercase tm-banner-title">Let's Travel</h1>
+                            <img src="img/dots-3.png" alt="Dots">
+                            <p class="tm-banner-subtitle">Time to explore and let loose.</p>
+                            <a href="javascript:void(0)" class="tm-down-arrow-link"><i class="fa fa-2x fa-angle-down tm-down-arrow"></i></a>       
+                        </div>    
+                    </div>  <!-- col-xs-12 -->                      
+                </div> <!-- row -->
+                <div class="row tm-banner-row" id="tm-section-search">
+                    <form id="search-form" action="./searchedDestinations.html" method="GET" class="tm-search-form tm-section-pad-2">
+                        <div class="form-row tm-search-form-row">                                
+                            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                                <label for="input-country">Choose Your Destination</label>
+                                <input name="destination" type="text" class="form-control" id="input-country" placeholder="Country name you want to visit...">
+                            </div>                      
+                            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                                <label>How many Adults & Children</label>
+                                <span id="roomAdultChild" class="form-control flex-container flex-evenly cursor-pointer" onclick="openTooltip()">
+                                    <span>
+                                        <span id="input-adult-shown">2</span><span id="is-plural-adult"> Adults</span>
+                                    </span>
+                                    <span>
+                                        <span id="input-child-shown">0</span><span id="is-plural-child"> Children</span>
+                                    </span>
+                                    <input name="adult" id="input-adult-hidden" type="number" hidden value="2">
+                                    <input name="child" id="input-child-hidden" type="number" hidden value="0">
+                                </span>
+                                <div id="tooltip" role="tooltip">
+                                    <div class="flex-container-tooltip flex-evenly">
+                                        <div>
+                                            <label class="remove-margin-bottom">Adult(s)</label>
+                                        </div>
+                                        <div id="input-adult" class="input-tooltips">
+                                            <button id="inc-adult" class="btn btn-primary" onclick="return increase('Adult')"><i class="fas fa-plus"></i></button>
+                                            <span id="input-adult-value" class="input-tooltip-value">2</span>
+                                            <button id="dec-adult" class="btn btn-primary" onclick="return decrease('Adult')"><i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="flex-container-tooltip flex-evenly">
+                                        <div>
+                                            <label class="remove-margin-bottom">Children
+                                                <br>
+                                                <span class="fineprint">Age 17 and below.</span>
+                                            </label>
+                                        </div>
+                                        <div id="input-child" class="input-tooltips">
+                                            <button id="inc-child" class="btn btn-primary" onclick="return increase('Children')"><i class="fas fa-plus"></i></button>
+                                            <span id="input-child-value" class="input-tooltip-value">0</span>
+                                            <button id="dec-child" class="btn btn-primary" onclick="return decrease('Children')" disabled><i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- Room, Adult, Children-->
+                        </div> <!-- form-row -->
+                        <div class="form-row tm-search-form-row">
+
+                            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                                <label for="inputCheckIn">Dates (From)</label>
+                                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Available Dates (From)">
+                            </div>
+                            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                                <label for="inputCheckOut">Dates (To)</label>
+                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Available Dates (To)">
+                            </div>
+                            <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
+                                <label for="btnSubmit">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Search</button>
+                            </div>
+                        </div>                              
+                    </form>                             
+                </div> <!-- row -->
+                <div class="tm-banner-overlay"></div>
+            </div>  <!-- .container -->                   
+        </div>     <!-- .tm-container-outer -->                 
+    </section>
+
+    <section class="p-5 tm-container-outer tm-bg-gray">            
+        <div class="container">
+            <div class="row">
+                <div class="-xs-12col mx-auto tm-about-text-wrap text-center">                        
+                    <h2 class="text-uppercase mb-4">Your <strong>Journey</strong> is our priority</h2>
+                    <p class="mb-4">We consolidated all travel agencis deal into one site! Find the best deals from many approved tour operators easily and start ENJOYING!</p>
+                    <a href="destinations.html" class="text-uppercase btn-primary tm-btn">Continue explore</a>                              
+                </div>
+            </div>
+        </div>            
+    </section>
+    
+    <div class="tm-container-outer">
+        <section class="tm-slideshow-section">
+            <div class="tm-slideshow">
+                <img src="img/tm-img-01.jpg" alt="Image">
+                <img src="img/tm-img-02.jpg" alt="Image">
+                <img src="img/tm-img-03.jpg" alt="Image">    
+            </div>
+            <div class="tm-slideshow-description tm-bg-primary">
+                <h2 class="">Visit Europe's Best</h2>
+                <p>Europe is the second-smallest continent. Only Australia has less landmass. The top ten most visited countries in Europe are the following, France, Spain, Italy, United Kingdom, Turkey, Germany, Austria, Greece, Russia, and Portugal. Travelling here is a true adventure with rich history! </p>
+                <a href="javascript:void(0);" onclick="visitContinent('3a')" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">I Want To Visit Europe</a>
+            </div>
+        </section>
+        <section class="clearfix tm-slideshow-section tm-slideshow-section-reverse">
+
+            <div class="tm-right tm-slideshow tm-slideshow-highlight">
+                <img src="img/tm-img-02.jpg" alt="Image">
+                <img src="img/tm-img-03.jpg" alt="Image">
+                <img src="img/tm-img-01.jpg" alt="Image">
+            </div> 
+
+            <div class="tm-slideshow-description tm-slideshow-description-left tm-bg-highlight">
+                <h2 class="">Get A Taste Of Asia's Best</h2>
+                <p>Fascinating asia is filled with a rich diverse culture. The food here is so rich that the taste and smell of food will stay with you forever. Moreover, this is where you can immerse yourself in the natural remedy of good ol' nature.</p>
+                <a href="javascript:void(0);" onclick="visitContinent('4a')" class="text-uppercase tm-btn tm-btn-white tm-btn-white-highlight">I Want To Visit Asia</a>
+            </div>                        
+
+        </section>
+        <section class="tm-slideshow-section">
+            <div class="tm-slideshow">
+                <img src="img/tm-img-03.jpg" alt="Image">
+                <img src="img/tm-img-02.jpg" alt="Image">
+                <img src="img/tm-img-01.jpg" alt="Image">
+            </div>
+            <div class="tm-slideshow-description tm-bg-primary">
+                <h2 class="">Visit Wonderful America's</h2>
+                <p>Big and bold. Experience icy north Canada or all the way down to sun filled beaches of Mexico. North America has spectacular landscapes and buzzling cities. Chill out in South America with picturesque Carribean, samba rythims of Brazil, the south is as exciting as the north.</p>
+                <a href="javascript:void(0);" onclick="visitContinent('1a')" class="text-uppercase tm-btn tm-btn-white tm-btn-white-primary">I Want to Visit America's</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="tm-container-outer">
+        <p class="mb-0">Copyright © <span class="tm-current-year">2021</span> Your Company 
+    </footer>
+</div>
+
+<!-- load JS files -->
+<script src="js/jquery-3.6.0.min.js"></script>              <!-- jQuery (https://jquery.com/download/) -->
+<script src="js/popper.min.js"></script>                    <!-- https://popper.js.org/ -->       
+<script src="js/bootstrap.min.js"></script>                 <!-- https://getbootstrap.com/ -->
+<script src="slick/slick.min.js"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
+<script src="js/jquery.scrollTo.min.js"></script>           <!--https://github.com/flesler/jquery.scrollTo -->
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/index.js"></script>                         
+<script src="js/main.js"></script>
+<script src="db/destinationDb.js" type="module"></script>
+<script src="js/loadDb.js" type="module"></script>
+
+</body>
+</html>

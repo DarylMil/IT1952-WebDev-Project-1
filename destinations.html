@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelEasy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-5.15.3/css/all.min.css">                 <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <link rel="stylesheet" href="css/templatemo-style.css">                                   <!-- Templatemo style -->
+                     
+</head>
+<body>
+    <div class="tm-main-content" id="top">
+        <div class="tm-top-bar-bg"></div>    
+        <div class="tm-top-bar" id="tm-top-bar">
+            <div class="container">
+                <div class="row">
+                    <nav class="navbar navbar-expand-lg narbar-light">
+                        <a class="navbar-brand mr-auto" href="./index.html" onclick="resetSearch()">
+                            <img src="img/logo.png" alt="Site logo">
+                            TravelEasy
+                        </a>
+                        <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item" onclick="resetSearch()">
+                                    <a class="nav-link " href="./index.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./destinations.html" onclick="resetSearch()">Destinations</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./contactus.html">Contact Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="account-check" class="nav-link" onclick="authenticationCheck()">Account</a>
+                                </li>
+                            </ul>
+                        </div>                            
+                    </nav>
+                </div> 
+            </div> <!-- container -->
+        </div> <!-- .tm-top-bar -->
+    </div>
+    <div class="container">
+
+        <div class="row destination" id="tm-section-search"> <!-- search row -->
+            <form id="search-form" action="./searchedDestinations.html" method="GET" class="flex-container container" >                        
+                <div class="tm-form-group-1 tm-form-group tm-form-group-pad bg">
+                    <input name="destination" type="text" class="form-control" id="input-country" placeholder="Country name you want to visit...">
+                </div>                      
+                <div class="tm-form-group-1 tm-form-group tm-form-group-pad bg">
+    
+                    <span id="roomAdultChild" class="form-control flex-container flex-evenly" onclick="openTooltip()">
+                        <span>
+                            <span id="input-adult-shown">2</span><span id="is-plural-adult"> Adults</span>
+                        </span>
+                        <span>
+                            <span id="input-child-shown">0</span><span id="is-plural-child"> Children</span>
+                        </span>
+                        <input name="adult" id="input-adult-hidden" type="number" hidden value="2">
+                        <input name="child" id="input-child-hidden" type="number" hidden value="0">
+                    </span>
+                    <div id="tooltip" role="tooltip" class="short">
+                        <div class="flex-container-tooltip flex-evenly">
+                            <div>
+                                <label class="remove-margin-bottom">Adult(s)</label>
+                            </div>
+                            <div id="input-adult" class="input-tooltips">
+                                <button id="inc-adult" class="inc-button btn btn-primary" onclick="return increase('Adult')"><i class="fas fa-plus"></i></button>
+                                <span id="input-adult-value" class="input-tooltip-value">2</span>
+                                <button id="dec-adult" class="dec-button btn btn-primary" onclick="return decrease('Adult')"><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex-container-tooltip flex-evenly">
+                            <div>
+                                <label class="remove-margin-bottom">Children
+                                    <br>
+                                    <span class="fineprint">Age 17 and below.</span>
+                                </label>
+                            </div>
+                            <div id="input-child" class="input-tooltips">
+                                <button id="inc-child" class="inc-button btn btn-primary" onclick="return increase('Children')"><i class="fas fa-plus"></i></button>
+                                <span id="input-child-value" class="input-tooltip-value">0</span>
+                                <button id="dec-child" class="dec-button btn btn-primary" onclick="return decrease('Children')" disabled><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Room, Adult, Children-->
+                <div class="tm-form-group tm-form-group-pad sm">
+                    <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In" >
+                </div>
+                <div class="tm-form-group tm-form-group-pad sm">
+    
+                    <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out" >
+                </div>
+                <div class="tm-form-group tm-form-group-pad sm">
+    
+                    <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Search</button>
+                </div>
+            </form>                             
+        </div> <!-- search row -->
+    </div>
+
+    <div class="tm-page-wrap mx-auto">
+        <section class="tm-banner">
+            <div class="tm-container-outer">
+                <ul class="nav nav-pills tm-tabs-links" id="continent-tab">
+                    <li class="tm-tab-link-li">
+                        <a id="tab1a" href="#1a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/north-america.png" alt="Image" class="img-fluid">
+                            North America
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a href="#2a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/south-america.png" alt="Image" class="img-fluid">
+                            South America
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a id="tab3a" href="#3a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/europe.png" alt="Image" class="img-fluid">
+                            Europe
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a id="tab4a" href="#4a" data-toggle="tab" class="tm-tab-link active"><!-- Current Active Tab -->
+                            <img src="img/asia.png" alt="Image" class="img-fluid">
+                            Asia
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a href="#5a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/africa.png" alt="Image" class="img-fluid">
+                            Africa
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a href="#6a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/australia.png" alt="Image" class="img-fluid">
+                            Australia
+                        </a>
+                    </li>
+                    <li class="tm-tab-link-li">
+                        <a href="#7a" data-toggle="tab" class="tm-tab-link">
+                            <img src="img/antartica.png" alt="Image" class="img-fluid">
+                            Antartica
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content clearfix">
+                    
+                    <!-- Tab 1 -->
+                    <div class="tab-pane fade" id="1a">
+                        <div class="tm-recommended-place-wrap" id="1b">           
+                          <!-- items loaded from loadDestinations.js -->
+                        </div>                        
+                    </div> <!-- tab-pane -->
+                    
+                    <!-- Tab 2 -->
+                    <div class="tab-pane fade" id="2a">
+                        <div class="tm-recommended-place-wrap" id="2b">
+                            <!-- items loaded from loadDestinations.js --> 
+                        </div>                        
+                    </div> <!-- tab-pane -->          
+                    
+                    <!-- Tab 3 -->     
+                    <div class="tab-pane fade" id="3a">
+                        <div class="tm-recommended-place-wrap" id="3b">
+                            <!-- items loaded from loadDestinations.js --> 
+                        </div>                        
+                    </div> <!-- tab-pane -->
+                    
+                    <!-- Tab 4 -->
+                    <div class="tab-pane fade show active" id="4a">
+                    <!-- Current Active Tab WITH "show active" classes in DIV tag -->
+                        <div class="tm-recommended-place-wrap" id="4b">
+                            <!-- items loaded from loadDestinations.js --> 
+                        </div>                        
+                    </div> <!-- tab-pane -->
+                    
+                    <!-- Tab 5 -->
+                    <div class="tab-pane fade" id="5a">
+                        <div class="tm-recommended-place-wrap" id="5b">
+                            <!-- items loaded from loadDestinations.js --> 
+                        </div>                        
+                    </div> <!-- tab-pane -->   
+                    
+                    <!-- Tab 6 -->            
+                    <div class="tab-pane fade" id="6a">
+                        <div class="tm-recommended-place-wrap" id="6b">
+                            <!-- items loaded from loadDestinations.js -->   
+                        </div>                        
+                    </div> <!-- tab-pane -->
+                    
+                    <!-- Tab 7 -->
+                    <div class="tab-pane fade" id="7a">
+                        <div class="tm-recommended-place-wrap" id="7b">
+                            <!-- items loaded from loadDestinations.js -->  
+                        </div>                        
+                    </div> <!-- tab-pane -->
+                </div>
+            </div> <!-- container-outer -->
+        </section>
+        <footer class="tm-container-outer">
+            <p class="mb-0">Copyright © <span class="tm-current-year">2021</span> Your Company 
+        </footer>
+    </div>
+    <script src="js/jquery-3.6.0.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+    <script src="js/popper.min.js"></script>                    <!-- https://popper.js.org/ -->       
+    <script src="js/bootstrap.min.js"></script>                 <!-- https://getbootstrap.com/ -->
+    <script src="slick/slick.min.js"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
+    <script src="js/jquery.scrollTo.min.js"></script>           <!-- https://github.com/flesler/jquery.scrollTo -->
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/loadDestinations.js" type="module"></script>
+    <script src="js/index.js"></script>
+    <script src="js/main.js"></script> 
+</body>
+</html>
