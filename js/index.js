@@ -403,8 +403,8 @@ $(function(){
         }
     })
 
-    // if someone clicks a visit continent link
-    if(location.pathname == '/destinations.html') {
+    // if someone clicks  continent link
+    if(location.pathname.includes('/destinations.html')) {
         var isContinent = localStorage.getItem('visit-continent');
         if(isContinent != 'false'){
             console.log(isContinent)
